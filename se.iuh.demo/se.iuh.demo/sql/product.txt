@@ -1,0 +1,78 @@
+CREATE TABLE KhachHang (
+    MaKhachHang INT PRIMARY KEY AUTO_INCREMENT,
+    HoTen VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    SoDienThoai VARCHAR(15),
+    DiaChi VARCHAR(255)
+);
+
+CREATE TABLE ThietBi (
+    MaThietBi INT PRIMARY KEY AUTO_INCREMENT,
+    MaKhachHang INT,
+    LoaiThietBi VARCHAR(50),
+    HangSanXuat VARCHAR(50),
+    MauThietBi VARCHAR(50),
+    SoSeri VARCHAR(50),
+    FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
+);
+
+CREATE TABLE BaoGia (
+    MaBaoGia INT PRIMARY KEY AUTO_INCREMENT,
+    MaThietBi INT,
+    SoTienBaoGia DECIMAL(10, 2),
+    NgayBaoGia DATE,
+    NgayHetHan DATE,
+    FOREIGN KEY (MaThietBi) REFERENCES ThietBi(MaThietBi)
+);
+
+CREATE TABLE GiaoDich (
+    MaGiaoDich INT PRIMARY KEY AUTO_INCREMENT,
+    MaThietBi INT,
+    MaKhachHang INT,
+    TrangThai VARCHAR(50),
+    NgayGiaoDich DATE,
+    FOREIGN KEY (MaThietBi) REFERENCES ThietBi(MaThietBi),
+    FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
+);
+
+CREATE TABLE TrangThai (
+    MaTrangThai INT PRIMARY KEY AUTO_INCREMENT,
+    MaThietBi INT,
+    TrangThai VARCHAR(50),
+    NgayCapNhat DATE,
+    FOREIGN KEY (MaThietBi) REFERENCES ThietBi(MaThietBi)
+);
+
+CREATE TABLE DanhGia (
+    MaDanhGia INT PRIMARY KEY AUTO_INCREMENT,
+    MaThietBi INT,
+    TinhTrang VARCHAR(50),
+    NgayDanhGia DATE,
+    GhiChu TEXT,
+    FOREIGN KEY (MaThietBi) REFERENCES ThietBi(MaThietBi)
+);
+
+CREATE TABLE KeToan (
+    MaKeToan INT PRIMARY KEY AUTO_INCREMENT,
+    MaThietBi INT,
+    SoTienThanhToan DECIMAL(10, 2),
+    NgayThanhToan DATE,
+    PhuongThucThanhToan VARCHAR(50),
+    FOREIGN KEY (MaThietBi) REFERENCES ThietBi(MaThietBi)
+);
+
+CREATE TABLE TaiChe (
+    MaTaiChe INT PRIMARY KEY AUTO_INCREMENT,
+    MaThietBi INT,
+    HanhDong VARCHAR(50),
+    NgayHanhDong DATE,
+    GhiChu TEXT,
+    FOREIGN KEY (MaThietBi) REFERENCES ThietBi(MaThietBi)
+);
+
+CREATE TABLE BaoCao (
+    MaBaoCao INT PRIMARY KEY AUTO_INCREMENT,
+    LoaiBaoCao VARCHAR(50),
+    NgayTao DATE,
+    DuLieuBaoCao TEXT
+);
